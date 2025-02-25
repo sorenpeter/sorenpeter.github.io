@@ -1,0 +1,24 @@
+-- boilerplate code for sorenpeter@darch.dk --
+
+ring r w = fit 1 $ (circle 0 r) - (circle 0 (r-w));
+frame r w = fit 1 $ (rect 0 r) - (rect 0 (r-w));
+
+-- Shape #1 with smoothstep set to apx. 0.5 --
+shape n = setfxy [fr*cos (ft % (2*pi/n) - pi/n), fr*sin (ft % (2*pi/n) - pi/n)] $ smoothstep [0.51, 0.5] (abs fx);
+
+-- Shape #2 with r for size and hard edges like GLSL step --
+shape n r = setfxy [fr*cos (ft % (2*pi/n) - pi/n), fr*sin (ft % (2*pi/n) - pi/n)] $ abs fx < r;
+
+-- Poly #3 
+poly n r = spin 1.5 $ setfxy [fr*cos (ft % (2*pi/n) - pi/n), fr*sin (ft % (2*pi/n) - pi/n)] $ abs fx < r;
+
+outline c w = c - (zoom (1-w) $ c);
+c << circle 0 1;
+outline c 0.05 >> add;
+
+-- Wormhole and deeptime feedback --
+wormhole frag list = fit 1 $ spin (frag * list) $ hline (osc 0.07) 0.05; 
+wormhole (fr) [100, 100] * [1,0,0] >> add;
+wormhole (fx*fy) [1000, 10] * [0,1,1]>> add;
+
+fit 1 $ spin (saw 0.01) $ zoom 0.5 $ 0.98 * fb * (circle 0 2) >> add;
