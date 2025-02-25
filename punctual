@@ -13,7 +13,7 @@ shape n r = setfxy [fr*cos (ft % (2*pi/n) - pi/n), fr*sin (ft % (2*pi/n) - pi/n)
 poly n r = spin 1.5 $ setfxy [fr*cos (ft % (2*pi/n) - pi/n), fr*sin (ft % (2*pi/n) - pi/n)] $ abs fx < r;
 
 -- Outline
-ol c w = c - (zoom (1-w) $ c);
+ol w s = s - (zoom (1-w) $ s);
 -- c << circle 0 1;
 -- outline c 0.05 >> add;
 
